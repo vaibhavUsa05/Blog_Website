@@ -167,14 +167,22 @@ if($res){
     while($row=mysqli_fetch_assoc($res)){
       $messageID=$row["MESSAGE_ID"];
       $clientChat=$row["MESSAGE"];
+      
+
+      $currTime=$row["CURR_TIME"];
+      $currTimeString=strval($currTime);
      // echo $fromUserID . "and " . $messageID;
 
   if($fromUserID==$messageID){
-  echo'<span class="right">'.$clientChat.'</span>';
+  echo'<div class="right">'.$clientChat.'
+  <p>'.substr($currTimeString,0,15).'</p>
+  </div>';
   continue;
   }
 else{
-  echo'<span class="left">'.$clientChat.'</span>';
+  echo'<div class="left">'.$clientChat.'
+  <p>'.substr($currTimeString,0,15).'</p>
+  </div>';
   
 }
     }}
