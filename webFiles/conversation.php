@@ -77,6 +77,7 @@ textarea{
 background-color:black;
 color:white;
 width:50%;
+position:relative;
 padding:2px;
 margin-top:5px;
 margin-left:5%;
@@ -87,6 +88,7 @@ margin-left:5%;
 background-color:green;
 color:white;
 width:50%;
+position:relative;
 padding:2px;
 margin-top:5px;
 margin-left:37%;
@@ -94,7 +96,13 @@ margin-left:37%;
 h2{
   color:blue;
 }
-
+small{
+  color:orange;
+  font-weight:800;
+  position:absolute;
+  right:2px;
+  bottom:2px;
+}
     </style>
   </head>
   <body>
@@ -114,14 +122,23 @@ if($num>0){
   while($row=mysqli_fetch_assoc($res)){
     $messageID=$row["MESSAGE_ID"];
     $clientChat=$row["MESSAGE"];
+    $currTime=$row["CURR_TIME"];
+
+    $currTimeString=strval($currTime);
    // echo $fromUserID . "and " . $messageID;
 
 if($fromUserID==$messageID){
-echo'<span class="right">'.$clientChat.'</span>';
+echo'<div class="right">'.$clientChat.'
+<small>'.substr($currTimeString,0,15).'</small>
+</div>
+';
 continue;
 }
 else{
- echo'<span class="left">'.$clientChat.'</span>';
+  echo'<div class="left">'.$clientChat.'
+  <small>'.substr($currTimeString,0,15).'</small>
+  </div>
+  ';
 }
   }}
 
@@ -181,10 +198,23 @@ else{
 
 
   </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+   </body>
+  <script>
+    let btn=document.querySelector("button");
+    btn.addEventListener("click",formSubmit);
+    function formSubmit(){
+      // alert("song is playing ")
+      let audio=new Audio("../sound/ding-dong.mp3");
+      audio.play();
+    }
+// to stop form resubmission
+  if(window.history.replaceState){
+ window.history.replaceState(null,null,window.location.href);
+  }
+
+
+</script>
+
 </html>
 
 
